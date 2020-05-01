@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 /* GET home page. */
 router.post('/login', function (req, res, next) {
-    User.getWhereEmailPassword(req.body.email, req.body.password, function (err, result) {
+    User.getWhereEmailPassword(req.body.email, req.body.password, req.body.is_admin, function (err, result) {
         res.json(result);
     });
 
