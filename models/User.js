@@ -39,7 +39,7 @@ User.getById = function (id, result) {
 };
 
 User.getWhereEmailPassword = function (email, password, is_admin, result) {
-    sql.query("Select name, email, api_token from users where email = ? AND password = ? AND is_admin = ? limit 1", [email, password, is_admin], function (err, res) {
+    sql.query("Select id, name, email, api_token from users where email = ? AND password = ? AND is_admin = ? limit 1", [email, password, is_admin], function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
