@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/User')
+var User = require('../models/User');
+var Category = require('../models/Category');
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    User.getAll(function (result) {
-        res.json(result);
-    });
 
 });
-/* GET home page. */
+
+/**
+ * Authentication
+ */
 router.post('/login', function (req, res, next) {
     User.getWhereEmailPassword(req.body.email, req.body.password, req.body.is_admin, function (err, result) {
         res.json(result);
@@ -27,4 +28,17 @@ router.post('/register', function (req, res, next) {
     });
 
 });
+
+/**
+ * Categories
+ */
+router.get('/categories', function (req, res, next) {
+    Category.getAll(function (err, user) {
+        if (err)
+            res.send(err);
+        res.json(user);
+    });
+
+});
+
 module.exports = router;
