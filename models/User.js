@@ -64,6 +64,21 @@ User.getAll = function (result) {
     });
 };
 
+User.getAllByRole = function (role, result) {
+    sql.query("Select * from users where is_admin = ?", [role], function (err, res) {
+
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            console.log('tasks : ', res);
+
+            result(null, res);
+        }
+    });
+};
+
 User.updateById = function(id, user, result){
     sql.query("UPDATE users SET name = ? WHERE id = ?", [user.name, id], function (err, res) {
         if(err) {
