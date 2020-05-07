@@ -1,9 +1,15 @@
 var express = require('express');
+const process = require('process');
 var router = express.Router();
 var multer  = require('multer');
+var multerS3 = require('multer-s3')
 var crypto  = require('crypto');
+var aws = require('aws-sdk')
 var path = require('path');
 var Product = require('../models/Product');
+aws.config.loadFromPath(process.cwd()+'/config/aws.json');
+var s3 = new aws.S3({ endpoint: 'https://s3.us-east-2.stackpathstorage.com' })
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images')
@@ -16,7 +22,21 @@ var storage = multer.diskStorage({
         });
     }
 });
-var upload =  multer({ storage: storage });
+var upload =  multer({ storage: multerS3({
+        s3: s3,
+        bucket: 'akcybex',
+        acl: 'public-read',
+        metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+        },
+        key: function (req, file, callback) {
+            crypto.pseudoRandomBytes(16, function(err, raw) {
+                if (err) return callback(err);
+
+                callback(null, raw.toString('hex') + path.extname(file.originalname));
+            });
+        }
+    }) });
 
 router.get('/', function (req, res, next) {
     Product.getAll(function (err, user) {
@@ -31,8 +51,9 @@ router.get('/', function (req, res, next) {
 router.post('/add', upload.array('images', 3), function (req, res, next) {
     let body = req.body;
     let files = [];
+
     req.files.map(file => {
-       files.push(file.path.replace('public/',''))
+       files.push('https://cdn.akcybex.com/'+ file.key)
     });
 
     body.images = files.join(',');
