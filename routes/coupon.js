@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
-    let generate = new Coupon(req.body.code);
+    let generate = new Coupon(req.body);
     Coupon.create(generate,function (err, user) {
         if (err)
             res.send(err);

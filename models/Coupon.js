@@ -3,13 +3,15 @@ var sql = require('./db.js');
 var hat = require('hat');
 
 //Query object constructor
-var Coupon = function (code) {
-    var coupon = "";
+var Coupon = function (coupon) {
+    var cp = "";
     var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < 6; i++) {
-        coupon += possible.charAt(Math.floor(Math.random() * possible.length));
+        cp += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    this.code = code ? code : coupon;
+    this.title = coupon.title;
+    this.code = coupon.code ? coupon.code : cp;
+    this.discount = coupon.discount;
     this.created_at = new Date();
     this.updated_at = new Date();
 };
