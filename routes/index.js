@@ -30,18 +30,7 @@ router.post('/register', function (req, res, next) {
 
 });
 
-/**
- * Categories
- */
-router.get('/categories', function (req, res, next) {
-    Category.getAll(function (err, user) {
-        if (err)
-            res.send(err);
-        else
-            res.json(user);
-    });
 
-});
 
 /**
  * Designer & User Operations

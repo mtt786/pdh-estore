@@ -3,6 +3,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
+var categoryRouter = require('./routes/category');
+var couponRouter = require('./routes/coupon');
+
 const cors = require('cors');
 
 var app = express();
@@ -15,13 +18,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
-app.use(function(error, request, response, next) {
-    console.log("Error handler: ", error);
-
-    // Send an error message to the user.
-    response.status(error.status || 500).json({error:error.message});
-
-});
+app.use('/categories', categoryRouter);
+app.use('/coupons', couponRouter);
 
 module.exports = app;
