@@ -56,6 +56,21 @@ Product.getAll = function (result) {
     });
 };
 
+Product.getAllByCategory = function (categoryId, result) {
+    sql.query("Select * from products where category_id = ? ", categoryId, function (err, res) {
+
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            console.log('tasks : ', res);
+
+            result(null, res);
+        }
+    });
+};
+
 Product.updateById = function(id, product, result){
     sql.query("UPDATE products SET name = ? WHERE id = ?", [user.name, id], function (err, res) {
         if(err) {
