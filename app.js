@@ -16,5 +16,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
+app.use(function(error, request, response, next) {
+    console.log("Error handler: ", error);
+
+    // Send an error message to the user.
+    response.status(error.status || 500).json({error:error.message});
+
+});
 
 module.exports = app;

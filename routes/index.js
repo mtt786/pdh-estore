@@ -23,8 +23,9 @@ router.post('/register', function (req, res, next) {
     User.create(_user, function (err, user) {
 
         if (err)
-            res.send(err);
-        res.json(user);
+            res.status(500).send(err);
+        else
+            res.json(user);
     });
 
 });
@@ -36,7 +37,8 @@ router.get('/categories', function (req, res, next) {
     Category.getAll(function (err, user) {
         if (err)
             res.send(err);
-        res.json(user);
+        else
+            res.json(user);
     });
 
 });
@@ -51,16 +53,18 @@ router.post('/user/add', function (req, res, next) {
     User.create(_user, function (err, user) {
         if (err)
             res.send(err);
-        res.json(user);
+        else
+            res.json(user);
     });
 
 });
 
 router.get('/user/list/:role', function (req, res, next) {
-    User.getAllByRole( req.params.role, function (err, user) {
+    User.getAllByRole(req.params.role, function (err, user) {
         if (err)
             res.send(err);
-        res.json(user);
+        else
+            res.json(user);
     });
 
 });
@@ -69,7 +73,8 @@ router.post('/user/delete', function (req, res, next) {
     User.remove(req.body.user_id, function (err, user) {
         if (err)
             res.send(err);
-        res.json(user);
+        else
+            res.json(user);
     });
 
 });
