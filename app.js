@@ -6,6 +6,7 @@ var indexRouter = require('./routes/index');
 var categoryRouter = require('./routes/category');
 var couponRouter = require('./routes/coupon');
 var productRouter = require('./routes/product');
+var portfolioRouter = require('./routes/portfolio');
 
 
 const cors = require('cors');
@@ -23,5 +24,6 @@ app.use('/', indexRouter);
 app.use('/categories', categoryRouter);
 app.use('/coupons', couponRouter);
 app.use('/products', productRouter);
+app.use('/portfolios', portfolioRouter);
 
 module.exports = app;

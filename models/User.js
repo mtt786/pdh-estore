@@ -5,7 +5,10 @@ var hat = require('hat');
 //Query object constructor
 var User = function (user) {
     this.name = user.name;
+    this.image = user.image;
     this.email = user.email;
+    this.skills = user.skills;
+    this.experience = user.experience;
     this.password = user.password;
     this.api_token = hat();
     this.created_at = new Date();
