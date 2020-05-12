@@ -10,6 +10,7 @@ var Product = function (product) {
     this.description = product.description;
     this.size = product.size;
     this.price = product.price;
+    this.stock = product.stock;
     this.created_at = new Date();
     this.updated_at = new Date();
 };
