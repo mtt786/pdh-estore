@@ -42,8 +42,8 @@ Product.getById = function (id, result) {
 };
 
 
-Product.getAll = function (result) {
-    sql.query("Select * from products", function (err, res) {
+Product.getAll = function (result, search = '') {
+    sql.query("Select * from products where name like ?", '%' + search + '%', function (err, res) {
 
         if(err) {
             console.log("error: ", err);

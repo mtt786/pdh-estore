@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
                 res.send(err);
             else
                 res.json(user);
-        });
+        }, req.query.search ? req.query.search : '');
     }
 
 });
