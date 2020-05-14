@@ -57,8 +57,8 @@ Product.getAll = function (result, search = '') {
     });
 };
 
-Product.getAllByCategory = function (categoryId, result) {
-    sql.query("Select * from products where category_id = ? ", categoryId, function (err, res) {
+Product.getAllByCategory = function (categoryId, result, search = '') {
+    sql.query("Select * from products where category_id = ? AND name like ? ", [categoryId, '%' + search + '%'], function (err, res) {
 
         if(err) {
             console.log("error: ", err);

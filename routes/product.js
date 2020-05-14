@@ -47,7 +47,7 @@ router.get('/', function (req, res, next) {
                 res.send(err);
             else
                 res.json(user);
-        });
+        }, req.query.search ? req.query.search : '');
     } else {
         Product.getAll(function (err, user) {
             if (err)
