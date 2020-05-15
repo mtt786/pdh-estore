@@ -16,7 +16,7 @@ router.post('/add', function (req, res, next) {
     let generate = new Coupon(req.body);
     Coupon.create(generate,function (err, user) {
         if (err)
-            res.send(err);
+            res.status(500).send(err);
         else
             res.json(user);
     });

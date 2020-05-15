@@ -62,7 +62,7 @@ router.post('/add', upload.array('images', 3), function (req, res, next) {
 
     Portfolio.create(portfolio, function (err, user) {
         if (err)
-            res.send(err);
+            res.status(500).send(err);
         else
             res.json(user);
     });

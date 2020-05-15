@@ -86,7 +86,7 @@ router.post('/user/add', upload.single('image'), function (req, res, next) {
     _user.is_admin = req.body.is_admin;
     User.create(_user, function (err, user) {
         if (err)
-            res.send(err);
+            res.status(500).send(err);
         else
             res.json(user);
     });
