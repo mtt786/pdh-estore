@@ -59,6 +59,16 @@ router.get('/', function (req, res, next) {
 
 });
 
+router.get('/:id', function (req, res, next) {
+    Product.getById(req.params.id, function (err, user) {
+        if (err)
+            res.send(err);
+        else
+            res.json(user);
+    });
+
+});
+
 router.post('/add', upload.array('images', 3), function (req, res, next) {
     let body = req.body;
     let files = [];
@@ -71,6 +81,28 @@ router.post('/add', upload.array('images', 3), function (req, res, next) {
     let product = new Product(body);
 
     Product.create(product, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
+
+router.post('/:id/update', upload.array('images', 3), function (req, res, next) {
+    let body = req.body;
+    let files = req.body.old_images.split(',');
+
+    req.files.map(file => {
+        files.push('https://cdn.akcybex.com/' + file.key)
+    });
+
+    body.images = files.join(',');
+
+    let product = new Product(body);
+
+    Product.updateById(req.params.id, product, function (err, user) {
         if (err)
             res.status(500).send(err);
         else

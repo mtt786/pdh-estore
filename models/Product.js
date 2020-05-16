@@ -73,7 +73,8 @@ Product.getAllByCategory = function (categoryId, result, search = '') {
 };
 
 Product.updateById = function(id, product, result){
-    sql.query("UPDATE products SET name = ? WHERE id = ?", [user.name, id], function (err, res) {
+    sql.query("UPDATE products SET category_id = ?, images = ?, name = ?, description = ?, size = ?, price = ?, stock = ?, updated_at = ? WHERE id = ?",
+        [product.category_id, product.images, product.name, product.description, product.size, product.price, product.stock, product.updated_at, id], function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
