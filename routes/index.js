@@ -9,6 +9,20 @@ var crypto = require('crypto');
 var aws = require('aws-sdk');
 var path = require('path');
 var Portfolio = require('../models/Portfolio');
+var nodemailer = require("nodemailer");
+/*
+    Here we are configuring our SMTP Server details.
+    STMP is mail server which is responsible for sending and recieving email.
+*/
+var smtpTransport = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.googlemail.com",
+    auth: {
+        user: "prohubdesigns@gmail.com",
+        pass: "Prohub786"
+    }
+});
+
 aws.config.loadFromPath(process.cwd() + '/config/aws.json');
 var s3 = new aws.S3({endpoint: 'https://s3.us-east-2.stackpathstorage.com'});
 
@@ -112,5 +126,24 @@ router.post('/user/delete', function (req, res, next) {
     });
 
 });
+
+router.post('/contact-us', function (req, res, next) {
+    var mailOptions={
+        to : req.body.to ? req.body.to : "protechtigon@gmail.com",
+        subject : `${req.body.name}, ${req.body.phone_number}, ${req.body.email}`,
+        text : req.body.message
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+            res.end("error");
+        }else{
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+});
+
 
 module.exports = router;
