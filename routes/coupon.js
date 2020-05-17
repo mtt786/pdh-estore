@@ -24,6 +24,16 @@ router.post('/add', function (req, res, next) {
 });
 
 
+router.post('/validate', function (req, res, next) {
+    Coupon.getByCode(req.body.ccode, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
 router.post('/delete', function (req, res, next) {
 
     Coupon.remove(req.body.coupon_id,function (err, user) {

@@ -40,6 +40,17 @@ Coupon.getById = function (id, result) {
     });
 };
 
+Coupon.getByCode = function (code, result) {
+    sql.query("Select * from coupons where code = ? ", code, function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+        } else {
+            result(null, res);
+
+        }
+    });
+};
 
 Coupon.getAll = function (result) {
     sql.query("Select * from coupons", function (err, res) {
