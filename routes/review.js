@@ -23,7 +23,7 @@ router.post('/add', function (req, res, next) {
 
 });
 
-router.post('/:id/product', function (req, res, next) {
+router.get('/:id/product', function (req, res, next) {
 
     Review.getByProduct(req.params.id,function (err, user) {
         if (err)
@@ -34,7 +34,7 @@ router.post('/:id/product', function (req, res, next) {
 
 });
 
-router.post('/:id/user', function (req, res, next) {
+router.get('/:id/user/', function (req, res, next) {
 
     Review.getByUser(req.params.id,function (err, user) {
         if (err)
