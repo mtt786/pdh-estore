@@ -1,6 +1,5 @@
 'user strict';
 var sql = require('./db.js');
-var hat = require('hat');
 
 //Query object constructor
 var Category = function (category) {

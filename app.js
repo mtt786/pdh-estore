@@ -8,6 +8,7 @@ var couponRouter = require('./routes/coupon');
 var productRouter = require('./routes/product');
 var portfolioRouter = require('./routes/portfolio');
 var orderRouter = require('./routes/order');
+var reviewRouter = require('./routes/review');
 
 
 const cors = require('cors');
@@ -27,5 +28,6 @@ app.use('/coupons', couponRouter);
 app.use('/products', productRouter);
 app.use('/portfolios', portfolioRouter);
 app.use('/orders', orderRouter);
+app.use('/reviews', reviewRouter);
 
 module.exports = app;

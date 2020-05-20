@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Coupon = require('../models/Coupon');
+var Review = require('../models/reviews');
 
 router.get('/', function (req, res, next) {
-    Coupon.getAll(function (err, user) {
+    Review.getAll(function (err, user) {
         if (err)
             res.send(err);
         else
@@ -13,8 +13,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
-    let generate = new Coupon(req.body);
-    Coupon.create(generate,function (err, user) {
+    let review = new Review(req.body);
+    Review.create(review,function (err, user) {
         if (err)
             res.status(500).send(err);
         else
@@ -23,9 +23,20 @@ router.post('/add', function (req, res, next) {
 
 });
 
+router.post('/:id/product', function (req, res, next) {
 
-router.post('/validate', function (req, res, next) {
-    Coupon.getByCode(req.body.ccode, function (err, user) {
+    Review.getByProduct(req.params.id,function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
+router.post('/:id/user', function (req, res, next) {
+
+    Review.getByUser(req.params.id,function (err, user) {
         if (err)
             res.status(500).send(err);
         else
@@ -35,7 +46,7 @@ router.post('/validate', function (req, res, next) {
 });
 
 router.post('/delete', function (req, res, next) {
-    Coupon.remove(req.body.coupon_id,function (err, user) {
+    Review.remove(req.body.review_id,function (err, user) {
         if (err)
             res.send(err);
         else
