@@ -117,6 +117,17 @@ router.get('/user/list/:role', function (req, res, next) {
 
 });
 
+router.post('/user/:id', function (req, res, next) {
+    User.getById(req.params.id, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
+
 router.post('/user/delete', function (req, res, next) {
     User.remove(req.body.user_id, function (err, user) {
         if (err)
