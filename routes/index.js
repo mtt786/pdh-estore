@@ -117,7 +117,7 @@ router.get('/user/list/:role', function (req, res, next) {
 
 });
 
-router.post('/user/:id', function (req, res, next) {
+router.get('/user/:id', function (req, res, next) {
     User.getById(req.params.id, function (err, user) {
         if (err)
             res.status(500).send(err);
