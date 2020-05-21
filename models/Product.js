@@ -29,7 +29,7 @@ Product.create = function (newProduct, result) {
 };
 
 Product.getById = function (id, result) {
-    sql.query("Select * from products p INNER JOIN reviews r ON p.id = r.product_id where p.id = ?", id, function (err, res) {
+    sql.query("Select * from products p LEFT JOIN reviews r ON p.id = r.product_id where p.id = ?", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -43,7 +43,7 @@ Product.getById = function (id, result) {
 
 
 Product.getAll = function (result, search = '') {
-    sql.query("Select p.*, r.rating, r.testimonial from products p INNER JOIN reviews r ON p.id = r.product_id where p.name like ?", '%' + search + '%', function (err, res) {
+    sql.query("Select p.*, r.rating, r.testimonial from products p LEFT JOIN reviews r ON p.id = r.product_id where p.name like ?", '%' + search + '%', function (err, res) {
 
         if(err) {
             console.log("error: ", err);
@@ -58,7 +58,7 @@ Product.getAll = function (result, search = '') {
 };
 
 Product.getAllByCategory = function (categoryId, result, search = '') {
-    sql.query("Select p.*, r.rating, r.testimonial from products p INNER JOIN reviews r ON p.id = r.product_id where p.category_id = ? AND name like ? ", [categoryId, '%' + search + '%'], function (err, res) {
+    sql.query("Select p.*, r.rating, r.testimonial from products p LEFT JOIN reviews r ON p.id = r.product_id where p.category_id = ? AND name like ? ", [categoryId, '%' + search + '%'], function (err, res) {
 
         if(err) {
             console.log("error: ", err);
