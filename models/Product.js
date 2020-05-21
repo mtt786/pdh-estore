@@ -43,7 +43,7 @@ Product.getById = function (id, result) {
 
 
 Product.getAll = function (result, search = '') {
-    sql.query("Select p.*, r.* from products INNER JOIN reviews r ON p.id = r.product_id where name like ?", '%' + search + '%', function (err, res) {
+    sql.query("Select p.*, r.* from products p INNER JOIN reviews r ON p.id = r.product_id where name like ?", '%' + search + '%', function (err, res) {
 
         if(err) {
             console.log("error: ", err);
@@ -58,7 +58,7 @@ Product.getAll = function (result, search = '') {
 };
 
 Product.getAllByCategory = function (categoryId, result, search = '') {
-    sql.query("Select p.*, r.* from products INNER JOIN reviews r ON p.id = r.product_id where category_id = ? AND name like ? ", [categoryId, '%' + search + '%'], function (err, res) {
+    sql.query("Select p.*, r.* from products p INNER JOIN reviews r ON p.id = r.product_id where category_id = ? AND name like ? ", [categoryId, '%' + search + '%'], function (err, res) {
 
         if(err) {
             console.log("error: ", err);
