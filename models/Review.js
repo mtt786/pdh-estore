@@ -69,7 +69,7 @@ Review.getByProduct = function (productId, result) {
 };
 
 Review.getByUser = function (userId, result) {
-    sql.query("Select r.*, u.* from reviews r INNER JOIN products p ON r.product_id = p.id where r.user_id = ?", userId, function (err, res) {
+    sql.query("Select r.*, p.* from reviews r INNER JOIN products p ON r.product_id = p.id where r.user_id = ?", userId, function (err, res) {
 
         if(err) {
             console.log("error: ", err);
