@@ -5,9 +5,6 @@ var sql = require('./db.js');
 var Review = function (review) {
     this.user_id = review.user_id;
     this.product_id = review.product_id;
-    this.name = review.name;
-    this.email = review.email;
-    this.title = review.title;
     this.testimonial = review.testimonial;
     this.rating = review.rating;
     this.created_at = new Date();
@@ -28,7 +25,7 @@ Review.create = function (newReview, result) {
 };
 
 Review.getById = function (id, result) {
-    sql.query("Select * from reviews where id = ? ", id, function (err, res) {
+    sql.query("Select r.*, u.* from reviews r INNER JOIN users u ON r.user_id = u.id where r.id = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -42,7 +39,7 @@ Review.getById = function (id, result) {
 
 
 Review.getAll = function (result) {
-    sql.query("Select * from reviews", function (err, res) {
+    sql.query("Select r.*, u.* from reviews r INNER JOIN users u ON r.user_id = u.id", function (err, res) {
 
         if(err) {
             console.log("error: ", err);
@@ -57,7 +54,7 @@ Review.getAll = function (result) {
 };
 
 Review.getByProduct = function (productId, result) {
-    sql.query("Select * from reviews where product_id = ?", productId, function (err, res) {
+    sql.query("Select r.*, u.* from reviews r INNER JOIN users u ON r.user_id = u.id where r.product_id = ?", productId, function (err, res) {
 
         if(err) {
             console.log("error: ", err);
@@ -72,7 +69,7 @@ Review.getByProduct = function (productId, result) {
 };
 
 Review.getByUser = function (userId, result) {
-    sql.query("Select * from reviews where user_id = ?", userId, function (err, res) {
+    sql.query("Select r.*, u.* from reviews r INNER JOIN products p ON r.product_id = p.id where r.user_id = ?", userId, function (err, res) {
 
         if(err) {
             console.log("error: ", err);
