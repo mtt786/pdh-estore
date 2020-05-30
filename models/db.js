@@ -4,10 +4,10 @@ var mysql = require('mysql2');
 
 //local mysql db connection
 var connection = mysql.createConnection({
-    host     : 'prohub-estore-do-user-6209218-0.a.db.ondigitalocean.com',
-    port     :  25060,
-    user     : 'doadmin',
-    password : 'ujeazrblaxqi8jfq',
+    host     : 'mail.akcybex.com',
+    port     :  3306,
+    user     : 'akcybex',
+    password : '@Allahis1@',
     database : 'pdh_estore'
 });
 
