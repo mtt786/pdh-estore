@@ -127,6 +127,25 @@ router.get('/user/:id', function (req, res, next) {
 
 });
 
+router.post('/user/:id/password-update', function (req, res, next) {
+    User.updatePasswordById(req.body.password, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
+router.post('/user/:id/skills-update', function (req, res, next) {
+    User.updateSkillsById(req.body.skills, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
 
 router.post('/user/delete', function (req, res, next) {
     User.remove(req.body.user_id, function (err, user) {

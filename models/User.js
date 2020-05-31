@@ -82,8 +82,20 @@ User.getAllByRole = function (role, result) {
     });
 };
 
-User.updateById = function(id, user, result){
-    sql.query("UPDATE users SET name = ? WHERE id = ?", [user.name, id], function (err, res) {
+User.updateSkillsById = function(id, skills, result){
+    sql.query("UPDATE users SET skills = ? WHERE id = ?", [skills, id], function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
+User.updatePasswordById = function(id, password, result){
+    sql.query("UPDATE users SET password = ? WHERE id = ?", [password, id], function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
