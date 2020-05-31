@@ -128,7 +128,7 @@ router.get('/user/:id', function (req, res, next) {
 });
 
 router.post('/user/:id/password-update', function (req, res, next) {
-    User.updatePasswordById(req.body.password, function (err, user) {
+    User.updatePasswordById(req.params.id, req.body.password, function (err, user) {
         if (err)
             res.status(500).send(err);
         else
@@ -138,7 +138,7 @@ router.post('/user/:id/password-update', function (req, res, next) {
 });
 
 router.post('/user/:id/skills-update', function (req, res, next) {
-    User.updateSkillsById(req.body.skills, function (err, user) {
+    User.updateSkillsById(req.params.id, req.body.skills, function (err, user) {
         if (err)
             res.status(500).send(err);
         else
