@@ -36,7 +36,7 @@ Portfolio.getById = function (id, result) {
 };
 
 Portfolio.getAll = function (result) {
-    sql.query("Select * from portfolios", userId, function (err, res) {
+    sql.query("Select * from portfolios", function (err, res) {
 
         if (err) {
             console.log("error: ", err);
