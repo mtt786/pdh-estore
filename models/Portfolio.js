@@ -35,8 +35,21 @@ Portfolio.getById = function (id, result) {
     });
 };
 
+Portfolio.getAll = function (result) {
+    sql.query("Select * from portfolios", userId, function (err, res) {
 
-Portfolio.getAll = function (userId, result) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            console.log('tasks : ', res);
+
+            result(null, res);
+        }
+    });
+};
+
+Portfolio.getAllByUserId = function (userId, result) {
     sql.query("Select * from portfolios where user_id = ?", userId, function (err, res) {
 
         if (err) {
