@@ -4,7 +4,9 @@ var sql = require('./db.js');
 //Query object constructor
 var Portfolio = function (portfolio) {
     this.title = portfolio.title;
-    this.user_id = portfolio.user_id;
+    if(portfolio.user_id){
+        this.user_id = portfolio.user_id;
+    }
     this.description = portfolio.description;
     this.images = portfolio.images;
     this.created_at = new Date();
@@ -63,8 +65,8 @@ Portfolio.getAllByUserId = function (userId, result) {
     });
 };
 
-Portfolio.updateById = function (id, code, result) {
-    sql.query("UPDATE portfolios SET code = ? WHERE id = ?", [code, id], function (err, res) {
+Portfolio.updateById = function (id, portfolio, result) {
+    sql.query("UPDATE portfolios SET title = ?, description = ?, images = ? WHERE id = ?", [portfolio.title, portfolio.description, portfolio.images, id], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);

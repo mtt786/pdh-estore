@@ -89,6 +89,27 @@ router.post('/add', upload.array('images', 3), function (req, res, next) {
 
 });
 
+router.post('/:id/update', upload.array('images', 3), function (req, res, next) {
+    let body = req.body;
+    let files = req.body.old_images.split(',');
+
+    req.files.map(file => {
+        files.push('https://cdn.akcybex.com/' + file.key)
+    });
+
+
+    body.images = files.join(',');
+    let portfolio = new Portfolio(body);
+
+    Portfolio.updateById(req.params.id, portfolio, function (err, user) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
 router.get('/:id', function (req, res, next) {
     Portfolio.getById(req.params.id, function (err, user) {
         if (err)
