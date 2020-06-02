@@ -49,12 +49,22 @@ router.get('/', function (req, res, next) {
                 res.json(user);
         });
     } else {
-        Portfolio.getAll(function (err, user) {
-            if (err)
-                res.send(err);
-            else
-                res.json(user);
-        });
+        if(req.query.user_id) {
+            Portfolio.getAllByUserId(req.query.user_id, function (err, user) {
+                if (err)
+                    res.send(err);
+                else
+                    res.json(user);
+            });
+        } else {
+            Portfolio.getAll(function (err, user) {
+                if (err)
+                    res.send(err);
+                else
+                    res.json(user);
+            });
+        }
+
     }
 
 });
@@ -73,6 +83,16 @@ router.post('/add', upload.array('images', 3), function (req, res, next) {
     Portfolio.create(portfolio, function (err, user) {
         if (err)
             res.status(500).send(err);
+        else
+            res.json(user);
+    });
+
+});
+
+router.get('/:id', function (req, res, next) {
+    Portfolio.getById(req.params.id, function (err, user) {
+        if (err)
+            res.send(err);
         else
             res.json(user);
     });
